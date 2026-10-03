@@ -1,4 +1,4 @@
-# 🧛 Vampire Keyboard
+# Vampire Keyboard
 
 <p align="center">
   <img src="Assets/dracula.png" width="128" alt="Vampire Keyboard Logo"/>
@@ -10,19 +10,19 @@ Vampire Keyboard is a multilingual keyboard helper for Windows built for Banglad
 
 ---
 
-## ✨ Features
+## Features
 
-- ⚡ **Live Banglish to Bangla conversion** — works system-wide in every app, fully **offline**
-- 🧠 **Smart phonetic engine** — 200+ word dictionary, hard letters, hasanta conjuncts (`sKul` becomes the Bangla word for school), case-sensitive rules
-- 🏛 **Bijoy/Avro Compatible Mode** — for official documents and legacy editors
-- 🌍 **20+ languages** — Hindi, Urdu, Arabic, Spanish, French, Chinese, Japanese and more
-- 🔁 **Direct translator** — Google Translate with automatic offline fallback
-- 📴 **Works offline** — transliteration never needs internet; translations cache locally
-- 🖱 **Draggable top bar** — click to switch language, toggle typing mode, ON/OFF
-- 🛡 **Runs as Administrator** — reliable hooks even in elevated apps
-- 🚀 **Auto-start with Windows**, desktop shortcut, professional installer
+- **Live Banglish to Bangla conversion** - works system-wide in every app, fully **offline**
+- **Smart phonetic engine** - 200+ word dictionary, hard letters, hasanta conjuncts (`sKul` becomes the Bangla word for school), case-sensitive rules
+- **Bijoy/Avro Compatible Mode** - for official documents and legacy editors
+- **20+ languages** - Hindi, Urdu, Arabic, Spanish, French, Chinese, Japanese and more
+- **Direct translator** - Google Translate with automatic offline fallback
+- **Works offline** - transliteration never needs internet; translations cache locally
+- **Draggable top bar** - click to switch language, toggle typing mode, ON/OFF
+- **Runs as Administrator** - reliable hooks even in elevated apps
+- **Auto-start with Windows**, desktop shortcut, professional installer
 
-## 📦 Installation
+## Installation
 
 ### Installer (recommended)
 
@@ -40,17 +40,17 @@ Vampire Keyboard is a multilingual keyboard helper for Windows built for Banglad
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish
 ```
 
-## ⌨️ Usage Examples
+## Usage Examples
 
 | You type | You get |
 |---|---|
-| `ami bhalo achi` | আমি ভালো আছি |
-| `ami tomake bhalobashi` | আমি তোমাকে ভালোবাসি |
-| `taka koto dorkar` | টাকা কত দরকার |
-| `dhonnobad vai` | ধন্যবাদ ভাই |
-| `Taka` / `sKul` | টাকা / স্কুল (case tricks) |
+| `ami bhalo achi` | "Ami bhalo achi" in Bangla script (I am fine) |
+| `ami tomake bhalobashi` | "I love you" in Bangla script |
+| `taka koto dorkar` | "How much money is needed" in Bangla script |
+| `dhonnobad vai` | "Thank you brother" in Bangla script |
+| `Taka` / `sKul` | Hard T/S letters with case tricks |
 
-## 🛠 Building from Source
+## Building from Source
 
 **Prerequisites:** .NET 10 SDK, Windows
 
@@ -65,40 +65,40 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 ISCC.exe installer.iss
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 VampireKeyboard/
-├── App.xaml / App.xaml.cs           # Application entry, single-instance, error handling
-├── MainWindow.xaml(.cs)             # Setup wizard (language selection, install)
-├── TopBarWindow.xaml(.cs)           # Draggable top bar with language menu
-├── SettingsWindow.xaml(.cs)         # Settings + direct translator UI
-├── Assets/                          # Logo (dracula.png / .ico)
-├── Services/
-│   ├── BanglishTransliterator.cs    # Banglish → Bangla phonetic engine
-│   ├── MultiLangTransliterator.cs   # Hindi / Urdu phonetic support
-│   ├── BijoyConverter.cs            # Bijoy/Avro compatible conversion
-│   ├── KeyboardHookService.cs       # Global low-level keyboard hook
-│   ├── TranslationService.cs        # Google Translate + offline fallback
-│   ├── OfflineDictionary.cs         # Persistent offline translation cache
-│   ├── AppSettings.cs               # Persisted settings
-│   ├── TrayIconService.cs           # System tray icon & menu
-│   ├── LanguageDef.cs               # Supported language definitions
-│   └── ShortcutCreator.cs           # Desktop shortcut creation
-└── installer.iss                    # Inno Setup installer script
+|-- App.xaml / App.xaml.cs           # Application entry, single-instance, error handling
+|-- MainWindow.xaml(.cs)             # Setup wizard (language selection, install)
+|-- TopBarWindow.xaml(.cs)           # Draggable top bar with language menu
+|-- SettingsWindow.xaml(.cs)         # Settings + direct translator UI
+|-- Assets/                          # Logo (dracula.png / .ico)
+|-- Services/
+|   |-- BanglishTransliterator.cs    # Banglish to Bangla phonetic engine
+|   |-- MultiLangTransliterator.cs   # Hindi / Urdu phonetic support
+|   |-- BijoyConverter.cs            # Bijoy/Avro compatible conversion
+|   |-- KeyboardHookService.cs       # Global low-level keyboard hook
+|   |-- TranslationService.cs        # Google Translate + offline fallback
+|   |-- OfflineDictionary.cs         # Persistent offline translation cache
+|   |-- AppSettings.cs               # Persisted settings
+|   |-- TrayIconService.cs           # System tray icon & menu
+|   |-- LanguageDef.cs               # Supported language definitions
+|   `-- ShortcutCreator.cs           # Desktop shortcut creation
+`-- installer.iss                    # Inno Setup installer script
 ```
 
-## 🗺 Roadmap
+## Roadmap
 
 - [ ] Word suggestions / autocomplete popup
 - [ ] Voice input
 - [ ] Cloud sync of personal dictionary
 - [ ] macOS & Linux support
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please open an issue or pull request - especially for new Banglish dictionary words and transliteration fixes.
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
