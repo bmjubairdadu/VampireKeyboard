@@ -1,0 +1,17 @@
+﻿tomake => তোমাকে
+ami => আমি
+bhalo => ভালো
+kori => করি
+kothay => কোথায়
+bhalobashi => ভালোবাশি
+dhonnobad => ধন্যবাদ
+tumi => তুমি
+kemon => কেমন
+acho => আছো
+valo => ভালো
+kore => করে
+jacchi => জাচচি
+dorkar => দরকার
+computer => computer
+---sentence---
+আমি তোমাকে ভালোবাশি

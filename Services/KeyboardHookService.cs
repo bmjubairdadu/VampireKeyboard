@@ -156,7 +156,12 @@ public class KeyboardHookService : IDisposable
             if (to == "hindi") return MultiLangTransliterator.TryTransliterate("hindi", word);
             if (to == "urdu") return MultiLangTransliterator.TryTransliterate("urdu", word);
 
-            if (to == "bangla") return ConvertBanglishWord(word);
+            if (to == "bangla")
+            {
+                var local = ConvertBanglishWord(word);
+                if (local != null) return local;
+                return LookupOnline("bn", "bn", word, word.Length);
+            }
 
             if (to == "english")
             {
@@ -173,7 +178,7 @@ public class KeyboardHookService : IDisposable
             {
                 if (SmartWordHandler.LooksLikeTechnicalTerm(word)) return null;
                 if (SmartWordHandler.IsCommonEnglishWord(word))
-                    return LookupOnline("en", "bn", word);
+                    return LookupOnline("en", "bn", word, word.Length);
                 return null;
             }
             return null;
@@ -185,7 +190,7 @@ public class KeyboardHookService : IDisposable
         return null;
     }
 
-    private string? LookupOnline(string fromCode, string toCode, string word)
+    private string? LookupOnline(string fromCode, string toCode, string word, int replaceCount)
     {
         string pair = $"{fromCode}-{toCode}";
         var cached = OfflineDictionary.Lookup(pair, word);
@@ -204,10 +209,13 @@ public class KeyboardHookService : IDisposable
             {
                 var result = await _translator.TranslateAsync(word, fromCode, toCode);
                 if (!string.IsNullOrEmpty(result) && result != word)
+                {
                     OfflineDictionary.Save(pair, new Dictionary<string, string>
                     {
                         [key] = result
                     });
+                    ReplaceLastChars(replaceCount, result);
+                }
             }
             catch { }
             finally

@@ -2,6 +2,11 @@
 using System.Windows;
 using VampireKeyboard.Services;
 
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None,
+    ResourceDictionaryLocation.SourceAssembly
+)]
+
 namespace VampireKeyboard;
 
 public partial class App : Application

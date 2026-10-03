@@ -66,5 +66,5 @@ Creating setup files
 
 Warning: The [Setup] section directive "PrivilegesRequired" is set to "admin" but per-user areas (HKCU,userappdata) are used by the script. Regardless of the version of Windows, if the installation is running in administrative install mode then you should be careful about making any per-user area changes: such changes may not achieve what you are intending. See the "UsedUserAreasWarning" topic in help file for more information.
 
-Successful compile (11.875 sec). Resulting Setup program filename is:
+Successful compile (10.562 sec). Resulting Setup program filename is:
 d:\Vampire Keyboard\installer\VampireKeyboard-Setup.exe
