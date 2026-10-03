@@ -34,13 +34,15 @@ public partial class App : Application
 
         base.OnStartup(e);
         Settings = AppSettings.Load();
-        Hook.CurrentLanguage = Settings.SelectedLanguage;
+        Hook.FromLanguage = Settings.FromLanguage;
+        Hook.ToLanguage = Settings.ToLanguage;
         Hook.Enabled = Settings.AutoTranslateEnabled;
     }
     public void StartRunning(AppSettings settings)
     {
         Settings = settings;
-        Hook.CurrentLanguage = settings.SelectedLanguage;
+        Hook.FromLanguage = settings.FromLanguage;
+        Hook.ToLanguage = settings.ToLanguage;
         Hook.Enabled = settings.AutoTranslateEnabled;
         Hook.Install();
 

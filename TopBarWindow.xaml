@@ -7,7 +7,7 @@
         WindowStartupLocation="Manual">
     <Grid>
         <Border x:Name="MainBar" Background="#2A1E3F" CornerRadius="19" BorderBrush="#C0392B"
-                BorderThickness="1" Padding="4,3" MouseLeftButtonDown="Bar_MouseDown">
+                BorderThickness="1" Padding="4,3">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -33,24 +33,16 @@
             <Border Background="#2A1E3F" CornerRadius="10" BorderBrush="#C0392B"
                     BorderThickness="1" Margin="0,4,0,0" Width="240">
                 <StackPanel>
-                    <TextBlock Text="Language" FontSize="11" Foreground="#8A78A3"
+                    <TextBlock Text="From (you type)" FontSize="11" Foreground="#8A78A3"
                                Margin="12,10,0,4"/>
-                    <ListBox x:Name="LangList" MaxHeight="240" BorderThickness="0"
-                             Background="Transparent" Foreground="#F3EAFB"
-                             SelectionChanged="LangList_SelectionChanged"/>
-                    <Separator Background="#3D2F55" Margin="8,6"/>
-                    <TextBlock Text="Typing Mode" FontSize="11" Foreground="#8A78A3"
+                    <ComboBox x:Name="FromBox" Margin="12,0,12,6" Height="30" FontSize="12"
+                              Background="#120C1C" Foreground="#F3EAFB"
+                              SelectionChanged="From_Changed"/>
+                    <TextBlock Text="To (output)" FontSize="11" Foreground="#8A78A3"
                                Margin="12,2,0,4"/>
-                    <StackPanel Margin="12,0,12,4">
-                        <RadioButton x:Name="ModeConvert" GroupName="mode" Content="Convert typing"
-                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2"
-                                     Checked="Mode_Changed"/>
-                        <RadioButton x:Name="ModeNormal" GroupName="mode" Content="Normal typing"
-                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2" Checked="Mode_Changed"/>
-                        <RadioButton x:Name="ModeBijoy" GroupName="mode" Content="Bijoy mode"
-                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2" Checked="Mode_Changed"
-                                     ToolTip="Bijoy/Avro keyboard style - for official work"/>
-                    </StackPanel>
+                    <ComboBox x:Name="ToBox" Margin="12,0,12,6" Height="30" FontSize="12"
+                              Background="#120C1C" Foreground="#F3EAFB"
+                              SelectionChanged="To_Changed"/>
                     <Separator Background="#3D2F55" Margin="8,6"/>
                     <Grid Margin="12,4,12,12">
                         <Grid.ColumnDefinitions>

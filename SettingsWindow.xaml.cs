@@ -36,7 +36,7 @@ public partial class SettingsWindow : Window
         if (_loading || LanguageBox.SelectedIndex < 0) return;
         _settings.SelectedLanguage = LanguageDef.All[LanguageBox.SelectedIndex].Id;
         _settings.Save();
-        ((App)Application.Current).Hook.CurrentLanguage = _settings.SelectedLanguage;
+        ((App)Application.Current).Hook.ToLanguage = _settings.SelectedLanguage;
     }
 
     private async void TranslateBtn_Click(object sender, RoutedEventArgs e)

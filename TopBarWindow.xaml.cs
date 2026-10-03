@@ -7,19 +7,16 @@ namespace VampireKeyboard;
 public partial class TopBarWindow : Window
 {
     private readonly AppSettings _settings;
-    private bool _loadingLangs;
+    private bool _loading;
 
     public TopBarWindow(AppSettings settings)
     {
         InitializeComponent();
         _settings = settings;
         PositionTopRight();
-        LoadLanguages();
+        LoadFromTo();
         UpdateLabel();
         EnableBox.IsChecked = _settings.AutoTranslateEnabled;
-        if (_settings.SelectedLanguage == "bijoy") ModeBijoy.IsChecked = true;
-        else if (_settings.AutoTranslateEnabled) ModeConvert.IsChecked = true;
-        else ModeNormal.IsChecked = true;
     }
 
     private void PositionTopRight()
@@ -28,44 +25,91 @@ public partial class TopBarWindow : Window
         Top = SystemParameters.WorkArea.Top + 8;
     }
 
-    private void LoadLanguages()
+    private void LoadFromTo()
     {
-        _loadingLangs = true;
-        LangList.Items.Clear();
-        foreach (var lang in LanguageDef.All)
+        _loading = true;
+
+        var fromOptions = new[]
         {
-            var item = new ListBoxItem
-            {
-                Content = $"{lang.Flag}  {lang.DisplayName}",
-                Tag = lang,
-                Padding = new Thickness(10, 7, 10, 7),
-                FontSize = 13,
-            };
-            if (lang.Id == _settings.SelectedLanguage) item.IsSelected = true;
-            LangList.Items.Add(item);
-        }
-        _loadingLangs = false;
+            new KeyValuePair<string, string>("banglish-bangla", "Banglish (Roman)"),
+            new KeyValuePair<string, string>("english", "English"),
+            new KeyValuePair<string, string>("bijoy", "Bijoy/Avro"),
+            new KeyValuePair<string, string>("hindi", "Hindi (Roman)"),
+            new KeyValuePair<string, string>("urdu", "Urdu (Roman)"),
+        };
+        var toOptions = new[]
+        {
+            new KeyValuePair<string, string>("bangla", "Bangla"),
+            new KeyValuePair<string, string>("english", "English"),
+            new KeyValuePair<string, string>("hindi", "Hindi"),
+            new KeyValuePair<string, string>("urdu", "Urdu"),
+        };
+
+        FromBox.Items.Clear();
+        foreach (var o in fromOptions)
+            FromBox.Items.Add(new ComboBoxItem { Content = o.Value, Tag = o.Key });
+
+        ToBox.Items.Clear();
+        foreach (var o in toOptions)
+            ToBox.Items.Add(new ComboBoxItem { Content = o.Value, Tag = o.Key });
+
+        int fi = fromOptions.ToList().FindIndex(o => o.Key == _settings.FromLanguage);
+        FromBox.SelectedIndex = fi >= 0 ? fi : 0;
+        int ti = toOptions.ToList().FindIndex(o => o.Key == _settings.ToLanguage);
+        ToBox.SelectedIndex = ti >= 0 ? ti : 0;
+
+        _loading = false;
     }
 
     private void UpdateLabel()
     {
-        var lang = LanguageDef.All.FirstOrDefault(l => l.Id == _settings.SelectedLanguage)
-                   ?? LanguageDef.All[0];
-        string shortName = lang.Id switch
+        string from = _settings.FromLanguage switch
         {
-            "banglish-bangla" => "BN",
-            "banglish-english" => "BN-EN",
-            "bijoy" => "Bijoy",
-            "bangla" => "Bangla",
+            "banglish-bangla" => "BN-Roman",
             "english" => "EN",
-            _ => lang.Flag,
+            "bijoy" => "Bijoy",
+            "hindi" => "HI-Roman",
+            "urdu" => "UR-Roman",
+            _ => "BN",
         };
-        StatusText.Text = $"{shortName} v";
+        string to = _settings.ToLanguage switch
+        {
+            "bangla" => "BN",
+            "english" => "EN",
+            "hindi" => "HI",
+            "urdu" => "UR",
+            _ => "BN",
+        };
+        StatusText.Text = $"{from} > {to}";
         OnOffText.Text = _settings.AutoTranslateEnabled ? "[ON]" : "[OFF]";
     }
 
-    private void Bar_MouseDown(object sender, MouseButtonEventArgs e)
+    private void From_Changed(object sender, SelectionChangedEventArgs e)
     {
+        if (_loading || FromBox.SelectedItem is not ComboBoxItem fi || fi.Tag is not string from) return;
+        _settings.FromLanguage = from;
+        _settings.Save();
+        ((App)Application.Current).Hook.FromLanguage = from;
+        UpdateLabel();
+    }
+
+    private void To_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_loading || ToBox.SelectedItem is not ComboBoxItem ti || ti.Tag is not string to) return;
+        _settings.ToLanguage = to;
+        _settings.Save();
+        ((App)Application.Current).Hook.ToLanguage = to;
+        UpdateLabel();
+    }
+
+    private void Enable_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_loading) return;
+        bool on = EnableBox.IsChecked == true;
+        _settings.AutoTranslateEnabled = on;
+        _settings.Save();
+        ((App)Application.Current).Hook.Enabled = on;
+        UpdateLabel();
     }
 
     private void Lang_Click(object sender, MouseButtonEventArgs e)
@@ -77,60 +121,6 @@ public partial class TopBarWindow : Window
     {
         base.OnDeactivated(e);
         LangPopup.IsOpen = false;
-    }
-
-    private void LangList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (_loadingLangs) return;
-        if (LangList.SelectedItem is ListBoxItem li && li.Tag is LanguageDef lang)
-        {
-            _settings.SelectedLanguage = lang.Id;
-            _settings.Save();
-
-            var app = (App)Application.Current;
-            app.Hook.CurrentLanguage = lang.Id;
-
-            UpdateLabel();
-        }
-    }
-
-    private void Mode_Changed(object sender, RoutedEventArgs e)
-    {
-        if (EnableBox == null) return;
-        var app = (App)Application.Current;
-
-        if (ModeBijoy.IsChecked == true)
-        {
-            _settings.SelectedLanguage = "bijoy";
-            _settings.Save();
-            app.Hook.CurrentLanguage = "bijoy";
-            app.Hook.Enabled = true;
-            EnableBox.IsChecked = true;
-            LoadLanguages();
-        }
-        else
-        {
-            bool convert = ModeConvert.IsChecked == true;
-            _settings.AutoTranslateEnabled = convert;
-            _settings.Save();
-            app.Hook.Enabled = convert;
-            EnableBox.IsChecked = convert;
-        }
-        UpdateLabel();
-    }
-
-    private void Enable_Changed(object sender, RoutedEventArgs e)
-    {
-        if (ModeConvert == null) return;
-        bool on = EnableBox.IsChecked == true;
-        _settings.AutoTranslateEnabled = on;
-        _settings.Save();
-
-        var app = (App)Application.Current;
-        app.Hook.Enabled = on;
-        if (on && _settings.SelectedLanguage != "bijoy") ModeConvert.IsChecked = true;
-        else if (!on) ModeNormal.IsChecked = true;
-        UpdateLabel();
     }
 
     private void More_Click(object sender, RoutedEventArgs e)

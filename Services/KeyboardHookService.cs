@@ -39,7 +39,8 @@ public class KeyboardHookService : IDisposable
     private readonly object _lock = new();
 
     public bool Enabled { get; set; } = true;
-    public string CurrentLanguage { get; set; } = "banglish-bangla";
+    public string FromLanguage { get; set; } = "banglish-bangla";
+    public string ToLanguage { get; set; } = "banglish-bangla";
     public bool BijoyMode { get; set; }
     public event Action<string, string>? WordConverted;
 
@@ -79,14 +80,7 @@ public class KeyboardHookService : IDisposable
                 string typed = FlushBuffer();
                 if (!string.IsNullOrEmpty(typed))
                 {
-                    string? converted = CurrentLanguage switch
-                    {
-                        "banglish-bangla" => ConvertBanglishWord(typed),
-                        "hindi" => MultiLangTransliterator.TryTransliterate("hindi", typed),
-                        "urdu" => MultiLangTransliterator.TryTransliterate("urdu", typed),
-                        "bijoy" => BijoyConverter.TryConvert(typed),
-                        _ => null,
-                    };
+                    string? converted = ConvertWord(typed);
                     if (converted != null && converted != typed)
                     {
                         ReplaceLastChars(typed.Length, converted + " ");
@@ -142,6 +136,74 @@ public class KeyboardHookService : IDisposable
             return null;
 
         return BanglishTransliterator.TransliterateWord(word);
+    }
+
+    private string? ConvertWord(string word)
+    {
+        string from = FromLanguage;
+        string to = ToLanguage;
+
+        if (from == to) return null;
+
+        if (from == "banglish-bangla" && to == "banglish-bangla")
+            return null;
+
+        if (from == "banglish-bangla" && to == "banglish-english")
+            return null;
+
+        if (from == "bijoy" || to == "bijoy")
+            return BijoyConverter.TryConvert(word);
+
+        if (from == "banglish-bangla")
+        {
+            if (to == "hindi") return MultiLangTransliterator.TryTransliterate("hindi", word);
+            if (to == "urdu") return MultiLangTransliterator.TryTransliterate("urdu", word);
+
+            if (to == "bangla") return ConvertBanglishWord(word);
+
+            if (to == "english")
+            {
+                if (SmartWordHandler.LooksLikeTechnicalTerm(word)) return null;
+                return word;
+            }
+
+            return null;
+        }
+
+        if (from == "english" || from == "banglish-english")
+        {
+            if (to == "bangla" || to == "banglish-bangla")
+            {
+                if (SmartWordHandler.LooksLikeTechnicalTerm(word)) return null;
+                return ConvertEnglishToBangla(word);
+            }
+            return null;
+        }
+
+        if (from == "hindi" || from == "urdu")
+            return null;
+
+        return null;
+    }
+
+    private static string? ConvertEnglishToBangla(string word)
+    {
+        var cached = OfflineDictionary.Lookup("en-bn", word);
+        if (cached != null) return cached;
+
+        var rev = OfflineDictionary.Lookup("en-bn", word);
+        if (rev == null)
+        {
+            foreach (var kv in OfflineDictionary.Load("en-bn"))
+            {
+                if (string.Equals(kv.Value, word, StringComparison.OrdinalIgnoreCase))
+                {
+                    rev = kv.Key;
+                    break;
+                }
+            }
+        }
+        return rev;
     }
 
     private string FlushBuffer()

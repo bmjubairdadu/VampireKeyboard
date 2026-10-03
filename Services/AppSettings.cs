@@ -4,7 +4,9 @@ using System.Text.Json;
 namespace VampireKeyboard.Services;
 public class AppSettings
 {
-    public string SelectedLanguage { get; set; } = "Banglish";
+    public string SelectedLanguage { get; set; } = "banglish-bangla";
+    public string FromLanguage { get; set; } = "banglish-bangla";
+    public string ToLanguage { get; set; } = "banglish-bangla";
     public bool SetupCompleted { get; set; }
     public bool StartWithWindows { get; set; }
     public bool AutoTranslateEnabled { get; set; } = true;
