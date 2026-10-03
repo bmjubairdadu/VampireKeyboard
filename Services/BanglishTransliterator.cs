@@ -137,21 +137,6 @@ public static class BanglishTransliterator
         ["khubi"] = "খুবই", ["ok"] = "ওকে",
     };
 
-    private static readonly string[] EnglishWords =
-    {
-        "the", "and", "for", "with", "this", "that", "from", "have", "not",
-        "are", "was", "you", "your", "will", "can", "what", "when", "where",
-        "who", "how", "why", "yes", "no", "ok", "okay", "please", "me",
-        "my", "we", "they", "he", "she", "it", "is", "in", "on", "at", "to",
-        "do", "does", "did", "done", "get", "got", "go", "going", "come",
-        "came", "want", "need", "like", "love", "know", "think", "see",
-        "look", "make", "made", "take", "give", "find", "use", "work",
-        "http", "https", "www", "com", "org", "net", "gmail", "yahoo",
-        "facebook", "google", "youtube", "windows", "linux", "android",
-        "whatsapp", "messenger", "imo", "zoom", "email", "password", "login",
-        "account", "file", "folder", "download", "upload", "install", "update",
-    };
-
     private static bool IsBanglaVowelLetter(char c) =>
         "অআইঈউঊএঐওঔ".IndexOf(c) >= 0;
 
@@ -167,12 +152,7 @@ public static class BanglishTransliterator
     private static bool LooksLikeEnglish(string word)
     {
         if (word.Any(char.IsDigit)) return true;
-        string w = word.ToLowerInvariant();
-        foreach (var e in EnglishWords)
-        {
-            if (w == e) return true;
-        }
-        if (w.StartsWith("http") || w.StartsWith("www.") || word.Contains('@') || word.Contains('.')) return true;
+        if (SmartWordHandler.IsCommonEnglishWord(word)) return true;
         return false;
     }
 

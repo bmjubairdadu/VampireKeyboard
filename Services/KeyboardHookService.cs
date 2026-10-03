@@ -81,7 +81,7 @@ public class KeyboardHookService : IDisposable
                 {
                     string? converted = CurrentLanguage switch
                     {
-                        "banglish-bangla" => BanglishTransliterator.TransliterateWord(typed),
+                        "banglish-bangla" => ConvertBanglishWord(typed),
                         "hindi" => MultiLangTransliterator.TryTransliterate("hindi", typed),
                         "urdu" => MultiLangTransliterator.TryTransliterate("urdu", typed),
                         "bijoy" => BijoyConverter.TryConvert(typed),
@@ -132,6 +132,17 @@ public class KeyboardHookService : IDisposable
 
     private static bool ModifierKeysDown() =>
         (GetKeyState(0x11) & 0x8000) != 0 || (GetKeyState(0x12) & 0x8000) != 0;
+
+    private static string? ConvertBanglishWord(string word)
+    {
+        if (SmartWordHandler.LooksLikeTechnicalTerm(word))
+            return null;
+
+        if (SmartWordHandler.IsCommonEnglishWord(word))
+            return null;
+
+        return BanglishTransliterator.TransliterateWord(word);
+    }
 
     private string FlushBuffer()
     {
