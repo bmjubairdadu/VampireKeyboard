@@ -146,7 +146,21 @@ public class KeyboardHookService : IDisposable
         string from = FromLanguage;
         string to = ToLanguage;
 
+        if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to)) return null;
+
+        // "banglish-bangla" is a valid INPUT but never a valid OUTPUT target.
+        if (to == "banglish-bangla") to = "bangla";
+
         if (from == to) return null;
+
+        // Banglish (Roman) input is always transliterated to Bangla, regardless of target,
+        // so the user's text can never silently vanish.
+        if (from == "banglish-bangla" && to != "english")
+        {
+            var local = ConvertBanglishWord(word);
+            if (local != null) return local;
+            return LookupOnline("bn", "bn", word, word.Length);
+        }
 
         if (from == "bijoy" || to == "bijoy")
             return BijoyConverter.TryConvert(word);
@@ -155,13 +169,6 @@ public class KeyboardHookService : IDisposable
         {
             if (to == "hindi") return MultiLangTransliterator.TryTransliterate("hindi", word);
             if (to == "urdu") return MultiLangTransliterator.TryTransliterate("urdu", word);
-
-            if (to == "bangla")
-            {
-                var local = ConvertBanglishWord(word);
-                if (local != null) return local;
-                return LookupOnline("bn", "bn", word, word.Length);
-            }
 
             if (to == "english")
             {
