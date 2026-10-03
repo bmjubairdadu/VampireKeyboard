@@ -41,14 +41,14 @@
                     <TextBlock Text="Typing Mode" FontSize="11" Foreground="#8A78A3"
                                Margin="12,2,0,4"/>
                     <StackPanel Orientation="Horizontal" Margin="12,0,12,4">
-                        <RadioButton x:Name="ModeConvert" GroupName="mode" Content="⚡ Convert typing"
+                        <RadioButton x:Name="ModeConvert" GroupName="mode" Content="Convert typing"
                                      Foreground="#F3EAFB" FontSize="12" Margin="0,0,14,0"
                                      Checked="Mode_Changed"/>
-                        <RadioButton x:Name="ModeNormal" GroupName="mode" Content="⌨ Normal typing"
+                        <RadioButton x:Name="ModeNormal" GroupName="mode" Content="Normal typing"
                                      Foreground="#F3EAFB" FontSize="12" Checked="Mode_Changed"/>
-                        <RadioButton x:Name="ModeBijoy" GroupName="mode" Content="🏛 Bijoy"
+                        <RadioButton x:Name="ModeBijoy" GroupName="mode" Content="Bijoy"
                                      Foreground="#F3EAFB" FontSize="12" Checked="Mode_Changed"
-                                     ToolTip="Bijoy/Avro keyboard style — for official work"/>
+                                     ToolTip="Bijoy/Avro keyboard style - for official work"/>
                     </StackPanel>
                     <Separator Background="#3D2F55" Margin="8,6"/>
                     <Grid Margin="12,4,12,12">
@@ -59,7 +59,7 @@
                         <CheckBox x:Name="EnableBox" Content="Keyboard conversion ON"
                                   Foreground="#7DCEA0" FontSize="12" FontWeight="SemiBold"
                                   Checked="Enable_Changed" Unchecked="Enable_Changed"/>
-                        <Button Grid.Column="1" Content="More…"
+                        <Button Grid.Column="1" Content="More..."
                                 Background="#C0392B" Foreground="White" BorderThickness="0"
                                 Padding="10,3" FontSize="12" Cursor="Hand"
                                 Click="More_Click"/>

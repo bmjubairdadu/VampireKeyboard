@@ -1,4 +1,4 @@
-﻿namespace VampireKeyboard.Services;
+namespace VampireKeyboard.Services;
 public class LanguageDef
 {
     public string Id { get; }
@@ -14,26 +14,26 @@ public class LanguageDef
 
     public static readonly LanguageDef[] All =
     {
-        new("banglish-bangla", "Banglish â†’ à¦¬à¦¾à¦‚à¦²à¦¾ (Bangladesh)", "ðŸ‡§ðŸ‡©"),
-        new("banglish-english", "Banglish â†’ English", "ðŸ‡¬ðŸ‡§"),
-        new("bijoy", "Bijoy/Avro Compatible Mode", "⌨"),
-        new("bangla", "বাংলা (Bangla direct)", "🇧🇩"),
-        new("english", "English", "ðŸ‡ºðŸ‡¸"),
-        new("hindi", "à¤¹à¤¿à¤¨à¥à¤¦à¥€ (Hindi, India)", "ðŸ‡®ðŸ‡³"),
-        new("urdu", "Ø§Ø±Ø¯Ùˆ (Urdu, Pakistan)", "ðŸ‡µðŸ‡°"),
-        new("arabic", "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© (Arabic)", "ðŸ‡¸ðŸ‡¦"),
-        new("spanish", "EspaÃ±ol (Spanish)", "ðŸ‡ªðŸ‡¸"),
-        new("french", "FranÃ§ais (French)", "ðŸ‡«ðŸ‡·"),
-        new("german", "Deutsch (German)", "ðŸ‡©ðŸ‡ª"),
-        new("portuguese", "PortuguÃªs (Portuguese, Brazil)", "ðŸ‡§ðŸ‡·"),
-        new("russian", "Ð ÑƒÑÑÐºÐ¸Ð¹ (Russian)", "ðŸ‡·ðŸ‡º"),
-        new("chinese", "ä¸­æ–‡ (Chinese)", "ðŸ‡¨ðŸ‡³"),
-        new("japanese", "æ—¥æœ¬èªž (Japanese)", "ðŸ‡¯ðŸ‡µ"),
-        new("korean", "í•œêµ­ì–´ (Korean)", "ðŸ‡°ðŸ‡·"),
-        new("indonesian", "Bahasa Indonesia", "ðŸ‡®ðŸ‡©"),
-        new("malay", "Bahasa Melayu (Malay)", "ðŸ‡²ðŸ‡¾"),
-        new("turkish", "TÃ¼rkÃ§e (Turkish)", "ðŸ‡¹ðŸ‡·"),
-        new("thai", "à¹„à¸—à¸¢ (Thai)", "ðŸ‡¹ðŸ‡­"),
-        new("vietnamese", "Tiáº¿ng Viá»‡t (Vietnamese)", "ðŸ‡»ðŸ‡³"),
+        new("banglish-bangla", "Banglish to Bangla (Bangladesh)", "BD"),
+        new("banglish-english", "Banglish to English", "EN"),
+        new("bijoy", "Bijoy/Avro Compatible Mode", "BJ"),
+        new("bangla", "Bangla direct", "BD"),
+        new("english", "English", "US"),
+        new("hindi", "Hindi (India)", "IN"),
+        new("urdu", "Urdu (Pakistan)", "PK"),
+        new("arabic", "Arabic", "SA"),
+        new("spanish", "Spanish", "ES"),
+        new("french", "French", "FR"),
+        new("german", "German", "DE"),
+        new("portuguese", "Portuguese (Brazil)", "BR"),
+        new("russian", "Russian", "RU"),
+        new("chinese", "Chinese", "CN"),
+        new("japanese", "Japanese", "JP"),
+        new("korean", "Korean", "KR"),
+        new("indonesian", "Indonesian", "ID"),
+        new("malay", "Malay", "MY"),
+        new("turkish", "Turkish", "TR"),
+        new("thai", "Thai", "TH"),
+        new("vietnamese", "Vietnamese", "VN"),
     };
 }

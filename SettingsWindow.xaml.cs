@@ -52,9 +52,9 @@ public partial class SettingsWindow : Window
             from = LanguageDef.All[2];
         }
 
-        ResultBox.Text = "Translatingâ€¦";
+        ResultBox.Text = "Translating...";
         var result = await _translator.TranslateAsync(text, MapApiCode(from.Id), MapApiCode(to.Id));
-        ResultBox.Text = result ?? "âš  Translation failed (offline or rate limited).";
+        ResultBox.Text = result ?? "Translation failed (offline or rate limited).";
     }
 
     private static string MapApiCode(string id) => id switch

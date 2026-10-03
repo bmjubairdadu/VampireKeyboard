@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Vampire Keyboard — Setup"
+        Title="Vampire Keyboard - Setup"
         Height="560" Width="720"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -53,16 +53,16 @@
             </Border>
             <TextBlock Text="Vampire Keyboard" FontSize="26" FontWeight="Bold"
                        Foreground="{StaticResource TextMain}" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-            <TextBlock Text="Type Banglish, get বাংলা — anywhere in Windows"
+            <TextBlock Text="Type Banglish, get Bangla - anywhere in Windows"
                        FontSize="13" Foreground="#B8A8CC" HorizontalAlignment="Center" Margin="0,4,0,0"/>
         </StackPanel>
         <StackPanel Grid.Row="1" x:Name="WelcomePanel" Visibility="Visible">
             <Border Background="{StaticResource CardBg}" CornerRadius="14" Padding="24">
                 <StackPanel>
-                    <TextBlock Text="Welcome to the installation wizard 🧛"
+                    <TextBlock Text="Welcome to the installation wizard"
                                FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextMain}"/>
                     <TextBlock FontSize="14" Foreground="#CBBFE0" Margin="0,12,0,0" TextWrapping="Wrap"
-                               Text="Vampire Keyboard lets every country's users type in their own language — with special focus on Bangladesh.&#x0A;&#x0A;• Bangladeshi developers can type Banglish (e.g. 'ami tumake bhalobashi') and it instantly becomes বাংলা in any app.&#x0A;• Or translate directly between Bangla and English.&#x0A;• Your chosen language is saved permanently until you change it.&#x0A;• Runs quietly in the system tray next to the clock."/>
+                               Text="Vampire Keyboard lets every country's users type in their own language - with special focus on Bangladesh.&#x0A;&#x0A;Bangladeshi developers can type Banglish (e.g. 'ami tumake bhalobashi') and it instantly becomes Bangla in any app.&#x0A;Or translate directly between Bangla and English.&#x0A;Your chosen language is saved permanently until you change it.&#x0A;Runs quietly in the system tray next to the clock."/>
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -80,10 +80,10 @@
         <StackPanel Grid.Row="1" x:Name="DonePanel" Visibility="Collapsed">
             <Border Background="{StaticResource CardBg}" CornerRadius="14" Padding="24">
                 <StackPanel>
-                    <TextBlock Text="✅ Installation complete!" FontSize="20" FontWeight="Bold"
+                    <TextBlock Text="Installation complete!" FontSize="20" FontWeight="Bold"
                                Foreground="#7DCEA0"/>
                     <TextBlock FontSize="14" Foreground="#CBBFE0" Margin="0,12,0,0" TextWrapping="Wrap"
-                               Text="Vampire Keyboard is now running in your system tray.&#x0A;&#x0A;You'll see a small Vampire icon near the clock — click it anytime to change language or settings.&#x0A;&#x0A;Now just type Banglish in any app: your word will instantly become বাংলা!"/>
+                               Text="Vampire Keyboard is now running in your system tray.&#x0A;&#x0A;You'll see a small Vampire icon near the clock - click it anytime to change language or settings.&#x0A;&#x0A;Now just type Banglish in any app: your word will instantly become Bangla!"/>
                 </StackPanel>
             </Border>
         </StackPanel>
@@ -93,12 +93,12 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="StartBtn" Content="🧛 Start Vampire Keyboard"
+            <Button Grid.Column="0" x:Name="StartBtn" Content="Start Vampire Keyboard"
                     Visibility="Collapsed" HorizontalAlignment="Left"
                     Click="StartBtn_Click" Background="#7DCEA0" Foreground="#1B1225" FontWeight="Bold"/>
-            <Button Grid.Column="1" x:Name="BackBtn" Content="← Back" Visibility="Collapsed"
+            <Button Grid.Column="1" x:Name="BackBtn" Content="Back" Visibility="Collapsed"
                     Margin="0,0,10,0" Background="#3D2F55" Click="BackBtn_Click"/>
-            <Button Grid.Column="2" x:Name="NextBtn" Content="Next →" FontWeight="Bold"
+            <Button Grid.Column="2" x:Name="NextBtn" Content="Next" FontWeight="Bold"
                     Click="NextBtn_Click"/>
         </Grid>
     </Grid>

@@ -29,7 +29,7 @@ public static class ShortcutCreator
             string iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "dracula.ico");
             if (!File.Exists(iconPath)) iconPath = exePath;
 
-            CreateShortcut(linkPath, exePath, iconPath, appName, "Vampire Keyboard — Type Banglish anywhere");
+            CreateShortcut(linkPath, exePath, iconPath, appName, "Vampire Keyboard - Type Banglish anywhere");
         }
         catch { }
     }

@@ -35,7 +35,7 @@ public partial class MainWindow : Window
         BackBtn.Visibility = step is 1 or 2 ? Visibility.Visible : Visibility.Collapsed;
         NextBtn.Content = step switch
         {
-            0 => "Next →",
+            0 => "Next",
             _ => "Install & Finish",
         };
         NextBtn.Visibility = step == 2 ? Visibility.Collapsed : Visibility.Visible;

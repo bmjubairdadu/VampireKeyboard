@@ -51,8 +51,8 @@ public partial class TopBarWindow : Window
     {
         var lang = LanguageDef.All.FirstOrDefault(l => l.Id == _settings.SelectedLanguage)
                    ?? LanguageDef.All[0];
-        StatusText.Text = $"{lang.Flag} {lang.DisplayName.Split('(')[0].Trim()}  ▼";
-        OnOffText.Text = _settings.AutoTranslateEnabled ? "● ON" : "● OFF";
+        StatusText.Text = $"{lang.Flag} {lang.DisplayName.Split('(')[0].Trim()}  v";
+        OnOffText.Text = _settings.AutoTranslateEnabled ? "[ON]" : "[OFF]";
     }
 
     private void Bar_MouseDown(object sender, MouseButtonEventArgs e)

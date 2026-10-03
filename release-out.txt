@@ -1,0 +1,1 @@
+RELEASE_UPDATED: https://github.com/bmjubairdadu/VampireKeyboard/releases/tag/v1.0.0

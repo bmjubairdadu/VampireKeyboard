@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VampireKeyboard.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Vampire Keyboard â€” Settings" Height="600" Width="560"
+        Title="Vampire Keyboard - Settings" Height="600" Width="560"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Background="#1B1225">
 
@@ -52,7 +52,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Direct translator (Bangla â‡„ English, or any language)"
+                <TextBlock Grid.Row="0" Text="Direct translator (Bangla to English, or any language)"
                            FontSize="13" Foreground="#CBBFE0" Margin="0,0,0,8"/>
 
                 <TextBox Grid.Row="1" x:Name="SourceBox" AcceptsReturn="True" TextWrapping="Wrap"
@@ -61,7 +61,7 @@
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8">
                     <ComboBox x:Name="FromBox" Width="110" Height="30" FontSize="12"/>
-                    <TextBlock Text=" â†’ " Foreground="#CBBFE0" FontSize="14" VerticalAlignment="Center"/>
+                    <TextBlock Text=" -> " Foreground="#CBBFE0" FontSize="14" VerticalAlignment="Center"/>
                     <ComboBox x:Name="ToBox" Width="110" Height="30" FontSize="12"/>
                     <Button Content="Translate" Margin="12,0,0,0" Click="TranslateBtn_Click" Padding="14,5"/>
                     <Button Content="Copy" Margin="8,0,0,0" Click="CopyBtn_Click" Background="#3D2F55" Padding="14,5"/>
@@ -79,7 +79,7 @@
             </Grid.ColumnDefinitions>
             <CheckBox x:Name="EnableHookBox" Grid.Column="0" VerticalAlignment="Center"
                       Foreground="{StaticResource TextMain}" FontSize="13"
-                      Content="Banglish â†’ à¦¬à¦¾à¦‚à¦²à¦¾ live conversion is ON"
+                      Content="Banglish to Bangla live conversion is ON"
                       Checked="EnableHook_Changed" Unchecked="EnableHook_Changed"/>
             <Button Grid.Column="1" Content="Close" Background="#3D2F55" Click="CloseBtn_Click"/>
         </Grid>

@@ -1,0 +1,7 @@
+{
+    "body":  "## Vampire Keyboard v1.0.0 - First Stable Release\r\n\r\n**Type Banglish and get Bangla instantly - in any Windows application.**\r\n\r\n### Features\r\n- Live Banglish to Bangla conversion (works system-wide, fully offline)\r\n- Smart phonetic engine: 200+ word dictionary, hard letters, hasanta conjuncts\r\n- Bijoy/Avro Compatible Mode for official work\r\n- 20+ languages supported (Hindi, Urdu, Arabic, Spanish, Chinese...)\r\n- Direct translator (Google Translate with offline fallback)\r\n- Draggable top bar with language menu and typing mode toggle\r\n- Runs as Administrator for reliable keyboard hooks\r\n\r\n### Installation\r\n1. Download VampireKeyboard-Setup.exe below\r\n2. Run it and accept the UAC prompt\r\n3. Complete the setup wizard and pick your language\r\n4. Start typing Banglish anywhere!\r\n\r\n**Requirements:** Windows 10/11 x64. No .NET installation needed (bundled).",
+    "tag_name":  "v1.0.0",
+    "name":  "Vampire Keyboard v1.0.0",
+    "prerelease":  false,
+    "draft":  false
+}

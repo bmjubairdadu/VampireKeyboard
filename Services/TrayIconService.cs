@@ -40,7 +40,7 @@ public class TrayIconService : IDisposable
 
         var menu = new WinForms.ContextMenuStrip();
 
-        var headerItem = new WinForms.ToolStripMenuItem("🧛 Vampire Keyboard v1.0")
+        var headerItem = new WinForms.ToolStripMenuItem("Vampire Keyboard v1.0")
         {
             Enabled = false,
         };
@@ -58,16 +58,16 @@ public class TrayIconService : IDisposable
             toggle.Text = toggle.Checked ? "Enable Keyboard Conversion" : "Keyboard Conversion is OFF";
         };
 
-        var settingsItem = new WinForms.ToolStripMenuItem("⚙ Settings / Language");
+        var settingsItem = new WinForms.ToolStripMenuItem("Settings / Language");
         settingsItem.Click += (_, _) => OpenSettings();
 
-        var helpItem = new WinForms.ToolStripMenuItem("❓ How to Use");
+        var helpItem = new WinForms.ToolStripMenuItem("How to Use");
         helpItem.Click += (_, _) => ShowHelp();
 
-        var aboutItem = new WinForms.ToolStripMenuItem("ℹ About");
+        var aboutItem = new WinForms.ToolStripMenuItem("About");
         aboutItem.Click += (_, _) => ShowAbout();
 
-        var exitItem = new WinForms.ToolStripMenuItem("✖ Exit");
+        var exitItem = new WinForms.ToolStripMenuItem("Exit");
         exitItem.Click += (_, _) =>
         {
             _hook.Uninstall();
@@ -112,32 +112,32 @@ public class TrayIconService : IDisposable
     {
         MessageBox.Show(
             "How to use Vampire Keyboard:\n\n" +
-            "1. Click the language text on the top bar → choose your language\n" +
+            "1. Click the language text on the top bar, then choose your language\n" +
             "2. Type Banglish in ANY app (Notepad, Word, Chrome, Office...)\n" +
-            "3. Press Space after each word → it instantly becomes বাংলা\n\n" +
+            "3. Press Space after each word - it instantly converts to Bangla\n\n" +
             "Examples:\n" +
-            "   ami bhalo achi  →  আমি ভালো আছি\n" +
-            "   taka koto dorkar  →  টাকা কত দরকার\n\n" +
+            "   'ami bhalo achi' converts to Bangla (I am fine)\n" +
+            "   'taka koto dorkar' converts to Bangla (How much money needed)\n\n" +
             "Bijoy/Avro users: choose 'Bijoy/Avro Compatible Mode' from the top bar menu for official work.\n\n" +
             "Tips:\n" +
-            "• Capital T/D/N means hard letters: Taka → টাকা, Dhaka → ঢাকা\n" +
-            "• Top bar can be dragged anywhere on screen\n" +
-            "• Right-click the tray icon for more options",
-            "Vampire Keyboard — Help", MessageBoxButton.OK, MessageBoxImage.Information);
+            "- Capital T/D/N means hard letters: Taka, Dhaka\n" +
+            "- The top bar can be dragged anywhere on screen\n" +
+            "- Right-click the tray icon for more options",
+            "Vampire Keyboard - Help", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private static void ShowAbout()
     {
         MessageBox.Show(
             "Vampire Keyboard v1.0.0\n\n" +
-            "Type in your own language — anywhere in Windows.\n\n" +
-            "Made with 🖤 for Bangladeshi developers and users worldwide.\n\n" +
+            "Type in your own language - anywhere in Windows.\n\n" +
+            "Made for Bangladeshi developers and users worldwide.\n\n" +
             "Features:\n" +
-            "• Banglish → বাংলা live conversion (offline)\n" +
-            "• 20+ languages supported\n" +
-            "• Bijoy/Avro compatible mode\n" +
-            "• Direct translation (Google Translate + offline fallback)\n" +
-            "• Works in every application",
+            "- Banglish to Bangla live conversion (offline)\n" +
+            "- 20+ languages supported\n" +
+            "- Bijoy/Avro compatible mode\n" +
+            "- Direct translation (Google Translate + offline fallback)\n" +
+            "- Works in every application",
             "About Vampire Keyboard", MessageBoxButton.OK, MessageBoxImage.None);
     }
 
