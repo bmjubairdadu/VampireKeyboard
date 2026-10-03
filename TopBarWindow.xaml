@@ -1,53 +1,54 @@
-﻿<Window x:Class="VampireKeyboard.TopBarWindow"
+<Window x:Class="VampireKeyboard.TopBarWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Vampire Keyboard" Height="56" Width="270"
+        Title="Vampire Keyboard" Height="38" Width="196"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Topmost="True" ShowInTaskbar="False"
         WindowStartupLocation="Manual">
     <Grid>
-        <Border x:Name="MainBar" Background="#2A1E3F" CornerRadius="12" BorderBrush="#C0392B"
-                BorderThickness="1" Padding="8,4" MouseLeftButtonDown="Bar_MouseDown">
+        <Border x:Name="MainBar" Background="#2A1E3F" CornerRadius="19" BorderBrush="#C0392B"
+                BorderThickness="1" Padding="4,3" MouseLeftButtonDown="Bar_MouseDown">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Width="36" Height="36" CornerRadius="8"
+                <Border Grid.Column="0" Width="28" Height="28" CornerRadius="14"
                         Background="#120C1C" Cursor="Hand"
                         MouseLeftButtonUp="Logo_Click">
-                    <Image Source="Assets/dracula.png" Stretch="Uniform" Margin="3"/>
+                    <Image Source="Assets/dracula.png" Stretch="Uniform" Margin="2"/>
                 </Border>
-                <Border Grid.Column="1" Cursor="Hand" MouseLeftButtonUp="Lang_Click">
+                <Border Grid.Column="1" Cursor="Hand" MouseLeftButtonUp="Lang_Click"
+                        Background="Transparent">
                     <TextBlock x:Name="StatusText" VerticalAlignment="Center"
-                               Margin="10,0,6,0" FontSize="12" Foreground="#F3EAFB"/>
+                               Margin="8,0,4,0" FontSize="11" Foreground="#F3EAFB"/>
                 </Border>
                 <TextBlock Grid.Column="2" x:Name="OnOffText" VerticalAlignment="Center"
-                           FontSize="10" Foreground="#8A78A3" Margin="0,0,6,0"/>
+                           FontSize="9" Foreground="#8A78A3" Margin="0,0,8,0"/>
             </Grid>
         </Border>
         <Popup x:Name="LangPopup" PlacementTarget="{Binding ElementName=MainBar}"
-               Placement="Bottom" StaysOpen="False" AllowsTransparency="True">
+               Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
             <Border Background="#2A1E3F" CornerRadius="10" BorderBrush="#C0392B"
-                    BorderThickness="1" Margin="0,4,0,0" Width="280">
+                    BorderThickness="1" Margin="0,4,0,0" Width="240">
                 <StackPanel>
                     <TextBlock Text="Language" FontSize="11" Foreground="#8A78A3"
                                Margin="12,10,0,4"/>
-                    <ListBox x:Name="LangList" MaxHeight="260" BorderThickness="0"
+                    <ListBox x:Name="LangList" MaxHeight="240" BorderThickness="0"
                              Background="Transparent" Foreground="#F3EAFB"
                              SelectionChanged="LangList_SelectionChanged"/>
                     <Separator Background="#3D2F55" Margin="8,6"/>
                     <TextBlock Text="Typing Mode" FontSize="11" Foreground="#8A78A3"
                                Margin="12,2,0,4"/>
-                    <StackPanel Orientation="Horizontal" Margin="12,0,12,4">
+                    <StackPanel Margin="12,0,12,4">
                         <RadioButton x:Name="ModeConvert" GroupName="mode" Content="Convert typing"
-                                     Foreground="#F3EAFB" FontSize="12" Margin="0,0,14,0"
+                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2"
                                      Checked="Mode_Changed"/>
                         <RadioButton x:Name="ModeNormal" GroupName="mode" Content="Normal typing"
-                                     Foreground="#F3EAFB" FontSize="12" Checked="Mode_Changed"/>
-                        <RadioButton x:Name="ModeBijoy" GroupName="mode" Content="Bijoy"
-                                     Foreground="#F3EAFB" FontSize="12" Checked="Mode_Changed"
+                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2" Checked="Mode_Changed"/>
+                        <RadioButton x:Name="ModeBijoy" GroupName="mode" Content="Bijoy mode"
+                                     Foreground="#F3EAFB" FontSize="12" Margin="0,2" Checked="Mode_Changed"
                                      ToolTip="Bijoy/Avro keyboard style - for official work"/>
                     </StackPanel>
                     <Separator Background="#3D2F55" Margin="8,6"/>
@@ -56,7 +57,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox x:Name="EnableBox" Content="Keyboard conversion ON"
+                        <CheckBox x:Name="EnableBox" Content="Conversion ON"
                                   Foreground="#7DCEA0" FontSize="12" FontWeight="SemiBold"
                                   Checked="Enable_Changed" Unchecked="Enable_Changed"/>
                         <Button Grid.Column="1" Content="More..."

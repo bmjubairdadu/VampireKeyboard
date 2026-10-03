@@ -28,7 +28,7 @@ public static class BanglishTransliterator
         ("t", "ত"), ("d", "দ"), ("n", "ন"), ("p", "প"),
         ("f", "ফ"), ("b", "ব"), ("v", "ভ"), ("m", "ম"),
         ("z", "জ"), ("y", "য"), ("r", "র"), ("l", "ল"),
-        ("s", "স"), ("h", "হ"), ("w", "ও"), ("x", "ক্স"), ("q", "ক"),
+        ("s", "স"), ("h", "হ"), ("x", "ক্স"), ("q", "ক"),
         ("a", "া"), ("i", "ি"), ("u", "ু"), ("e", "ে"), ("o", "ো"),
     };
 
@@ -42,6 +42,9 @@ public static class BanglishTransliterator
     private static readonly HashSet<string> VowelSigns = new()
     { "া", "ি", "ী", "ু", "ূ", "ে", "ো", "ৈ", "ৌ", "ৃ" };
 
+    private static readonly HashSet<string> HardLetters = new()
+    { "ট", "ঠ", "ড", "ঢ", "ণ", "ড়", "ঢ়" };
+
     private static readonly Dictionary<string, string> WordMap = new(StringComparer.OrdinalIgnoreCase)
     {
         ["ami"] = "আমি", ["amra"] = "আমরা", ["amar"] = "আমার", ["amake"] = "আমাকে",
@@ -50,7 +53,7 @@ public static class BanglishTransliterator
         ["tui"] = "তুই", ["tor"] = "তোর", ["tora"] = "তোরা", ["se"] = "সে",
         ["tahar"] = "তাহার", ["tar"] = "তার", ["tara"] = "তারা", ["take"] = "তাকে",
         ["tader"] = "তাদের", ["eder"] = "এদের", ["nijer"] = "নিজের", ["nijei"] = "নিজেই",
-        ["ke"] = "কে", ["kake"] = "কাকে", ["ki"] = "কি", ["kinu"] = "কিনু",
+        ["ke"] = "কে", ["kake"] = "কাকে", ["ki"] = "কি",
         ["kothay"] = "কোথায়", ["keno"] = "কেন", ["kokhono"] = "কখনো", ["kokhoni"] = "কখনোই",
         ["kivabe"] = "কিভাবে", ["koto"] = "কত", ["kotota"] = "কতটা", ["kon"] = "কোন",
         ["je"] = "যে", ["jeta"] = "যেটা", ["jegulo"] = "যেগুলো", ["jar"] = "যার",
@@ -59,83 +62,79 @@ public static class BanglishTransliterator
         ["ar"] = "আর", ["o"] = "ও", ["ba"] = "বা", ["to"] = "তো",
         ["na"] = "না", ["ni"] = "নি", ["abar"] = "আবার", ["ekhono"] = "এখনো",
         ["ekhane"] = "এখানে", ["okhane"] = "ওখানে", ["ekhon"] = "এখন", ["ajke"] = "আজকে",
-        ["kal"] = "কাল", ["kalk"] = "কালকে", ["age"] = "আগে", ["pore"] = "পরে",
-        ["ekdom"] = "একদম", ["onek"] = "অনেক", ["khub"] = "খুব", ["besh"] = "বেশ",
-        ["beshi"] = "বেশি", ["kom"] = "কম", ["hoito"] = "হয়তো", ["hoyoito"] = "হয়তো",
+        ["age"] = "আগে", ["pore"] = "পরে",
+        ["ekdom"] = "একদম", ["onek"] = "অনেক", ["khub"] = "খুব",
+        ["beshi"] = "বেশি", ["kom"] = "কম", ["hoito"] = "হয়তো",
         ["bhalo"] = "ভালো", ["valo"] = "ভালো", ["kharap"] = "খারাপ", ["boro"] = "বড়",
         ["choto"] = "ছোট", ["notun"] = "নতুন", ["purano"] = "পুরনো", ["sundor"] = "সুন্দর",
-        ["mishti"] = "মিষ্টি", ["shustho"] = "সুস্থ", ["kemon"] = "কেমন", ["emon"] = "এমন",
-        ["omon"] = "ওমন", ["mon"] = "মন", ["kotha"] = "কথা", ["bishoy"] = "বিষয়",
-        ["somoy"] = "সময়", ["shomoy"] = "সময়", ["jinish"] = "জিনিস", ["jinis"] = "জিনিস",
+        ["mishti"] = "মিষ্টি", ["kemon"] = "কেমন", ["emon"] = "এমন",
+        ["mon"] = "মন", ["kotha"] = "কথা", ["bishoy"] = "বিষয়",
+        ["somoy"] = "সময়", ["shomoy"] = "সময়", ["jinish"] = "জিনিস",
         ["bepar"] = "ব্যাপার", ["dorkar"] = "দরকার", ["proyojon"] = "প্রয়োজন", ["iccha"] = "ইচ্ছা",
-        ["ichha"] = "ইচ্ছা", ["kaj"] = "কাজ", ["kam"] = "কাম", ["dhonnobad"] = "ধন্যবাদ",
-        ["dhonnobash"] = "ধন্যবাদ", ["thanks"] = "ধন্যবাদ", ["thank"] = "ধন্যবাদ", ["hello"] = "হ্যালো",
-        ["hi"] = "হাই", ["sorry"] = "সরি", ["salaam"] = "সালাম", ["salam"] = "সালাম",
+        ["kaj"] = "কাজ", ["dhonnobad"] = "ধন্যবাদ",
+        ["thanks"] = "ধন্যবাদ", ["hello"] = "হ্যালো",
+        ["hi"] = "হাই", ["sorry"] = "সরি", ["salam"] = "সালাম",
         ["nomoshkar"] = "নমস্কার", ["accha"] = "আচ্ছা", ["acha"] = "আচ্ছা", ["acchi"] = "আছি",
-        ["hmm"] = "হুম", ["thik"] = "ঠিক", ["thikache"] = "ঠিকাছে", ["ha"] = "হ্যাঁ",
-        ["hae"] = "হ্যাঁ", ["aunno"] = "হ্যাঁ", ["unno"] = "উন",
-        ["ache"] = "আছে", ["acho"] = "আছো", ["achen"] = "আছেন", ["achhen"] = "আছেন",
-        ["nei"] = "নেই", ["nai"] = "নাই", ["chilo"] = "ছিল", ["chil"] = "ছিল",
-        ["chilam"] = "ছিলাম", ["chilo_na"] = "ছিলনা", ["hobe"] = "হবে", ["hobe_na"] = "হবেনা",
+        ["hmm"] = "হুম", ["thik"] = "ঠিক", ["ha"] = "হ্যাঁ",
+        ["ache"] = "আছে", ["acho"] = "আছো", ["achen"] = "আছেন",
+        ["nei"] = "নেই", ["nai"] = "নাই", ["chilo"] = "ছিল",
+        ["chilam"] = "ছিলাম", ["hobe"] = "হবে",
         ["hoy"] = "হয়", ["hoye"] = "হয়ে", ["hoyni"] = "হয়নি", ["hocche"] = "হচ্ছে",
-        ["hoyonni"] = "হয়নি", ["korbo"] = "করবো", ["kore"] = "করে", ["kori"] = "করি",
+        ["korbo"] = "করবো", ["kore"] = "করে", ["kori"] = "করি",
         ["koro"] = "করো", ["korchen"] = "করছেন", ["korchi"] = "করছি", ["korechi"] = "করেছি",
-        ["korechilo"] = "করেছিল", ["korte"] = "করতে", ["korle"] = "করলে", ["korbe"] = "করবে",
+        ["korte"] = "করতে", ["korle"] = "করলে", ["korbe"] = "করবে",
         ["korben"] = "করবেন", ["korun"] = "করুন", ["korlam"] = "করলাম", ["korini"] = "করিনি",
-        ["koren"] = "করেন", ["korar"] = "করার", ["jabo"] = "যাবো", ["jachhi"] = "যাচ্ছি",
-        ["jachche"] = "যাচ্ছে", ["jete"] = "যেতে", ["jabe"] = "যাবে", ["jaba"] = "যাবা",
+        ["koren"] = "করেন", ["jabo"] = "যাবো", ["jachhi"] = "যাচ্ছি",
+        ["jachche"] = "যাচ্ছে", ["jete"] = "যেতে", ["jabe"] = "যাবে",
         ["jawa"] = "যাওয়া", ["gese"] = "গেছে", ["geche"] = "গেছে", ["gele"] = "গেলে",
         ["giye"] = "গিয়ে", ["giyechi"] = "গিয়েছি", ["gelo"] = "গেলো", ["jai"] = "যাই",
         ["jao"] = "যাও", ["ashbo"] = "আসবো", ["ashchi"] = "আসছি", ["ashbe"] = "আসবে",
         ["ashe"] = "আসে", ["ashen"] = "আসেন", ["asha"] = "আশা", ["ashte"] = "আসতে",
-        ["ashle"] = "আসলে", ["ashole"] = "আসলে", ["dekha"] = "দেখা", ["dekhi"] = "দেখি",
+        ["ashole"] = "আসলে", ["dekha"] = "দেখা", ["dekhi"] = "দেখি",
         ["dekho"] = "দেখো", ["dekhe"] = "দেখে", ["dekhte"] = "দেখতে", ["dekhbo"] = "দেখবো",
-        ["dekhechi"] = "দেখেছি", ["dekhlam"] = "দেখলাম", ["dekhsen"] = "দেখসেন", ["dekhchen"] = "দেখছেন",
-        ["dekhtesi"] = "দেখতেছি", ["bola"] = "বলা", ["bolo"] = "বলো", ["bolchi"] = "বলছি",
-        ["bolen"] = "বলেন", ["bole"] = "বলে", ["bolar"] = "বলার", ["bolbo"] = "বলবো",
-        ["bolechi"] = "বলেছি", ["bolle"] = "বললে", ["shona"] = "শোনা", ["shuno"] = "শুনো",
-        ["shuni"] = "শুনি", ["shune"] = "শুনে", ["shon"] = "শোন", ["shonbo"] = "শুনবো",
-        ["khawa"] = "খাওয়া", ["khai"] = "খাই", ["khao"] = "খাও", ["khabo"] = "খাবো",
+        ["dekhechi"] = "দেখেছি", ["dekhlam"] = "দেখলাম", ["dekhchen"] = "দেখছেন",
+        ["bola"] = "বলা", ["bolo"] = "বলো", ["bolchi"] = "বলছি",
+        ["bolen"] = "বলেন", ["bole"] = "বলে", ["bolbo"] = "বলবো",
+        ["shona"] = "শোনা", ["shuno"] = "শুনো",
+        ["shuni"] = "শুনি", ["shune"] = "শুনে", ["shon"] = "শোন",
+        ["khai"] = "খাই", ["khao"] = "খাও", ["khabo"] = "খাবো",
         ["kheye"] = "খেয়ে", ["khabar"] = "খাবার", ["khelam"] = "খেলাম", ["khele"] = "খেলে",
-        ["khawa"] = "খাওয়া", ["chawa"] = "চাওয়া", ["chai"] = "চাই", ["chao"] = "চাও",
-        ["chay"] = "চায়", ["chaiche"] = "চাইছে", ["dicha"] = "দিচ্ছা", ["dicche"] = "দিচ্ছে",
-        ["dicchhi"] = "দিচ্ছি", ["dibi"] = "দিবি", ["dibo"] = "দিবো", ["dibe"] = "দিবে",
-        ["dao"] = "দাও", ["dio"] = "দাও", ["dawa"] = "দেওয়া", ["diye"] = "দিয়ে",
-        ["din"] = "দিন", ["dilo"] = "দিলো", ["dilam"] = "দিলাম", ["nite"] = "নিতে",
+        ["chai"] = "চাই", ["chao"] = "চাও",
+        ["chay"] = "চায়", ["diche"] = "দিচ্ছে",
+        ["dicchhi"] = "দিচ্ছি", ["dibo"] = "দিবো", ["dibe"] = "দিবে",
+        ["dao"] = "দাও", ["dawa"] = "দেওয়া", ["diye"] = "দিয়ে",
+        ["din"] = "দিন", ["dilo"] = "দিলো", ["dilam"] = "দিলাম",
         ["nao"] = "নাও", ["niye"] = "নিয়ে", ["nibo"] = "নিবো", ["nibe"] = "নিবে",
-        ["nichche"] = "নিচ্ছে", ["nichhi"] = "নিচ্ছি", ["neoa"] = "নেওয়া", ["likha"] = "লেখা",
-        ["likho"] = "লিখো", ["likhi"] = "লিখি", ["likhle"] = "লিখলে", ["likhlam"] = "লিখলাম",
+        ["likho"] = "লিখো", ["likhi"] = "লিখি", ["likhlam"] = "লিখলাম",
         ["lekha"] = "লেখা", ["pora"] = "পড়া", ["pori"] = "পড়ি", ["porbo"] = "পড়বো",
         ["porlam"] = "পড়লাম", ["poro"] = "পড়ো", ["porte"] = "পড়তে", ["porchi"] = "পড়ছি",
-        ["cholche"] = "চলছে", ["cholbe"] = "চলবে", ["cholchilo"] = "চলছিল", ["cholo"] = "চলো",
-        ["chol"] = "চল", ["kichu"] = "কিছু", ["kichu"] = "কিছু", ["kichui"] = "কিছুই",
+        ["cholche"] = "চলছে", ["cholbe"] = "চলবে", ["cholo"] = "চলো",
+        ["chol"] = "চল", ["kichu"] = "কিছু",
         ["bujhlam"] = "বুঝলাম", ["buji"] = "বুঝি", ["bujho"] = "বুঝো", ["bujhe"] = "বুঝে",
-        ["bujhechi"] = "বুঝেছি", ["bujhen"] = "বুঝেন", ["bujhsen"] = "বুঝসেন", ["mone"] = "মনে",
-        ["mone_hoy"] = "মনেহয়", ["monehochhe"] = "মনেহচ্ছে", ["dhoro"] = "ধরো", ["dhori"] = "ধরি",
-        ["dhore"] = "ধরে", ["dhorbo"] = "ধরবো", ["dhorlam"] = "ধরলাম", ["rakho"] = "রাখো",
-        ["rakhi"] = "রাখি", ["rekhechi"] = "রেখেছি", ["rakhbo"] = "রাখবো", ["rakhle"] = "রাখলে",
+        ["bujhechi"] = "বুঝেছি", ["bujhen"] = "বুঝেন", ["mone"] = "মনে",
+        ["dhoro"] = "ধরো", ["dhori"] = "ধরি",
+        ["dhore"] = "ধরে", ["rakho"] = "রাখো",
+        ["rakhi"] = "রাখি", ["rakhbo"] = "রাখবো",
         ["bhai"] = "ভাই", ["vai"] = "ভাই", ["bon"] = "বোন", ["apu"] = "আপু",
         ["didi"] = "দিদি", ["dada"] = "দাদা", ["mama"] = "মামা", ["mami"] = "মামি",
         ["mashi"] = "মাসি", ["chacha"] = "চাচা", ["chachi"] = "চাচি", ["kaku"] = "কাকু",
         ["kakima"] = "কাকিমা", ["nana"] = "নানা", ["nani"] = "নানি", ["dadi"] = "দাদি",
         ["thakuma"] = "ঠাকুমা", ["ammu"] = "আম্মু", ["abbu"] = "আব্বু", ["ma"] = "মা",
         ["baba"] = "বাবা", ["bou"] = "বউ", ["jamai"] = "জামাই", ["meye"] = "মেয়ে",
-        ["chele"] = "ছেলে", ["manush"] = "মানুষ", ["lok"] = "লোক", [" Bondhu"] = "বন্ধু",
-        ["bondhu"] = "বন্ধু", ["vabi"] = "ভাবি", ["bhabi"] = "ভাবি", ["vabhi"] = "ভাবি",
+        ["chele"] = "ছেলে", ["manush"] = "মানুষ", ["lok"] = "লোক", ["bondhu"] = "বন্ধু",
+        ["vabi"] = "ভাবি", ["bhabi"] = "ভাবি",
         ["bangladesh"] = "বাংলাদেশ", ["bangla"] = "বাংলা", ["dhaka"] = "ঢাকা", ["desh"] = "দেশ",
         ["desher"] = "দেশের", ["bidesh"] = "বিদেশ", ["ghor"] = "ঘর", ["ghore"] = "ঘরে",
         ["bari"] = "বাড়ি", ["barite"] = "বাড়িতে", ["dokan"] = "দোকান", ["bazar"] = "বাজার",
-        ["school"] = "স্কুল", ["skul"] = "স্কুল", ["college"] = "কলেজ", ["university"] = "ইউনিভার্সিটি",
+        ["skul"] = "স্কুল", ["college"] = "কলেজ",
         ["office"] = "অফিস", ["bhasha"] = "ভাষা", ["vasha"] = "ভাষা", ["gan"] = "গান",
-        ["boi"] = "বই", ["khela"] = "খেলা", ["kheli"] = "খেলি", ["khelechi"] = "খেলেছি",
-        ["football"] = "ফুটবল", ["cricket"] = "ক্রিকেট", ["pani"] = "পানি", ["jol"] = "জল",
+        ["boi"] = "বই", ["khela"] = "খেলা", ["kheli"] = "খেলি",
+        ["pani"] = "পানি", ["jol"] = "জল",
         ["machh"] = "মাছ", ["mach"] = "মাছ", ["mangsho"] = "মাংস", ["bhat"] = "ভাত",
         ["ruti"] = "রুটি", ["dim"] = "ডিম", ["dudh"] = "দুধ", ["cha"] = "চা",
-        ["chaa"] = "চা", ["coffee"] = "কফি", ["biye"] = "বিয়ে", ["bijoy"] = "বিজয়",
-        ["eid"] = "ঈদ", ["puja"] = "পূজা", ["shubho"] = "শুভ", ["jonmodin"] = "জন্মদিন",
-        ["jonmo"] = "জন্ম", ["mithye"] = "মিথ্যে", ["mithya"] = "মিথ্যা", ["shotti"] = "সত্যি",
-        ["shotti"] = "সত্যি", ["baba_re"] = "বাবারে", ["khub_i"] = "খুবই", ["khubi"] = "খুবই",
-        ["ok"] = "ওকে", ["hmm_hmm"] = "হুমহুম",
+        ["biye"] = "বিয়ে", ["eid"] = "ঈদ", ["shubho"] = "শুভ", ["jonmodin"] = "জন্মদিন",
+        ["jonmo"] = "জন্ম", ["shotti"] = "সত্যি",
+        ["khubi"] = "খুবই", ["ok"] = "ওকে",
     };
 
     private static readonly string[] EnglishWords =
@@ -181,7 +180,8 @@ public static class BanglishTransliterator
     {
         if (string.IsNullOrEmpty(word)) return word;
 
-        if (WordMap.TryGetValue(word.TrimEnd('_').ToLowerInvariant(), out var mapped))
+        string lower = word.ToLowerInvariant().TrimEnd('_');
+        if (WordMap.TryGetValue(lower, out var mapped))
             return mapped;
 
         if (LooksLikeEnglish(word)) return word;
@@ -190,6 +190,7 @@ public static class BanglishTransliterator
         int i = 0;
         bool lastWasConsonant = false;
         bool pendingHasanta = false;
+        bool isFirstSegment = true;
 
         while (i < word.Length)
         {
@@ -235,47 +236,43 @@ public static class BanglishTransliterator
             string matchedSource = word.Substring(i, matchLen);
             bool firstCharUpper = char.IsUpper(matchedSource[0]);
 
-            if (pendingHasanta)
-            {
-                if (VowelSigns.Contains(bangla))
-                {
-                    pendingHasanta = false;
-                }
-                else
-                {
-                    sb.Append(Hasanta);
-                    pendingHasanta = false;
-                }
-            }
-
             bool isVowelSign = VowelSigns.Contains(bangla);
             bool isSingleVowel = matchLen == 1 && "aeiou".Contains(char.ToLowerInvariant(matchedSource[0]));
-            bool forceFullVowel = (isSingleVowel && firstCharUpper && !matchedCaseSensitive);
+
+            if (pendingHasanta && !isVowelSign)
+            {
+                sb.Append(Hasanta);
+            }
+            pendingHasanta = false;
 
             if (isVowelSign || isSingleVowel)
             {
-                if (lastWasConsonant && !forceFullVowel)
+                bool atStart = !lastWasConsonant && isFirstSegment && sb.Length == 0;
+                bool prevIsVowelFull = sb.Length > 0 && IsBanglaVowelLetter(sb[sb.Length - 1]);
+                bool doubleVowel = matchLen >= 2 && matchedSource[0] == matchedSource[1];
+
+                if (lastWasConsonant && !prevIsVowelFull)
+                {
+                    sb.Append(bangla);
+                }
+                else if (doubleVowel && !atStart)
+                {
+                    sb.Append(VowelFull.TryGetValue(matchedSource.ToLowerInvariant(), out var dv)
+                        ? dv : bangla);
+                }
+                else if (sb.Length == 0)
+                {
+                    string key = matchedSource.ToLowerInvariant();
+                    sb.Append(VowelFull.TryGetValue(key, out var full) ? full : bangla);
+                }
+                else if (prevIsVowelFull)
                 {
                     sb.Append(bangla);
                 }
                 else
                 {
                     string key = matchedSource.ToLowerInvariant();
-                    if (VowelFull.TryGetValue(key, out var full))
-                        sb.Append(full);
-                    else
-                        sb.Append(bangla switch
-                        {
-                            "া" => "আ",
-                            "ি" => "ই",
-                            "ু" => "উ",
-                            "ে" => "এ",
-                            "ো" => "ও",
-                            "ৈ" => "ঐ",
-                            "ৌ" => "ঔ",
-                            "ৃ" => "ঋ",
-                            _ => bangla,
-                        });
+                    sb.Append(VowelFull.TryGetValue(key, out var full2) ? full2 : bangla);
                 }
 
                 lastWasConsonant = false;
@@ -284,10 +281,20 @@ public static class BanglishTransliterator
             {
                 sb.Append(bangla);
                 lastWasConsonant = true;
-                if (matchedCaseSensitive || (firstCharUpper && char.ToLowerInvariant(matchedSource[0]) is >= 'a' and <= 'z' && !"aeiou".Contains(char.ToLowerInvariant(matchedSource[0]))))
+
+                if (matchedCaseSensitive)
                     pendingHasanta = true;
+                else if (HardLetters.Contains(bangla) && word.Length > i + matchLen)
+                {
+                    string rest = word.Substring(i + matchLen);
+                    bool nextIsVowelStart = rest.Length > 0 && "aeiou".Contains(char.ToLowerInvariant(rest[0]));
+                    bool typedHard = firstCharUpper;
+                    if (typedHard || bangla is "ড" or "ঢ" or "ড়")
+                        pendingHasanta = true;
+                }
             }
 
+            isFirstSegment = false;
             i += matchLen;
         }
 

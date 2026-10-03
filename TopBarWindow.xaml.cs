@@ -51,19 +51,32 @@ public partial class TopBarWindow : Window
     {
         var lang = LanguageDef.All.FirstOrDefault(l => l.Id == _settings.SelectedLanguage)
                    ?? LanguageDef.All[0];
-        StatusText.Text = $"{lang.Flag} {lang.DisplayName.Split('(')[0].Trim()}  v";
+        string shortName = lang.Id switch
+        {
+            "banglish-bangla" => "BN",
+            "banglish-english" => "BN-EN",
+            "bijoy" => "Bijoy",
+            "bangla" => "Bangla",
+            "english" => "EN",
+            _ => lang.Flag,
+        };
+        StatusText.Text = $"{shortName} v";
         OnOffText.Text = _settings.AutoTranslateEnabled ? "[ON]" : "[OFF]";
     }
 
     private void Bar_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton == MouseButton.Left)
-            DragMove();
     }
 
     private void Lang_Click(object sender, MouseButtonEventArgs e)
     {
-        LangPopup.IsOpen = true;
+        LangPopup.IsOpen = !LangPopup.IsOpen;
+    }
+
+    protected override void OnDeactivated(EventArgs e)
+    {
+        base.OnDeactivated(e);
+        LangPopup.IsOpen = false;
     }
 
     private void LangList_SelectionChanged(object sender, SelectionChangedEventArgs e)
