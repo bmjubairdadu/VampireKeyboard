@@ -44,19 +44,10 @@
                               Background="#120C1C" Foreground="#F3EAFB"
                               SelectionChanged="To_Changed"/>
                     <Separator Background="#3D2F55" Margin="8,6"/>
-                    <Grid Margin="12,4,12,12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox x:Name="EnableBox" Content="Conversion ON"
-                                  Foreground="#7DCEA0" FontSize="12" FontWeight="SemiBold"
-                                  Checked="Enable_Changed" Unchecked="Enable_Changed"/>
-                        <Button Grid.Column="1" Content="More..."
-                                Background="#C0392B" Foreground="White" BorderThickness="0"
-                                Padding="10,3" FontSize="12" Cursor="Hand"
-                                Click="More_Click"/>
-                    </Grid>
+                    <CheckBox x:Name="EnableBox" Content="Conversion ON"
+                              Foreground="#7DCEA0" FontSize="12" FontWeight="SemiBold"
+                              Margin="12,4,12,12"
+                              Checked="Enable_Changed" Unchecked="Enable_Changed"/>
                 </StackPanel>
             </Border>
         </Popup>

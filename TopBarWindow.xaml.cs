@@ -123,12 +123,6 @@ public partial class TopBarWindow : Window
         LangPopup.IsOpen = false;
     }
 
-    private void More_Click(object sender, RoutedEventArgs e)
-    {
-        LangPopup.IsOpen = false;
-        TrayIconService.OpenSettings();
-    }
-
     private void Logo_Click(object sender, MouseButtonEventArgs e)
     {
         TrayIconService.OpenSettings();

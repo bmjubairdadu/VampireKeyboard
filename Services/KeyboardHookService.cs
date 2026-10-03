@@ -37,6 +37,9 @@ public class KeyboardHookService : IDisposable
     private LowLevelKeyboardProc? _proc;
     private readonly List<char> _buffer = new();
     private readonly object _lock = new();
+    private readonly TranslationService _translator = new();
+    private readonly HashSet<string> _pendingTranslations = new(StringComparer.OrdinalIgnoreCase);
+    private readonly object _pendingLock = new();
 
     public bool Enabled { get; set; } = true;
     public string FromLanguage { get; set; } = "banglish-bangla";
@@ -145,12 +148,6 @@ public class KeyboardHookService : IDisposable
 
         if (from == to) return null;
 
-        if (from == "banglish-bangla" && to == "banglish-bangla")
-            return null;
-
-        if (from == "banglish-bangla" && to == "banglish-english")
-            return null;
-
         if (from == "bijoy" || to == "bijoy")
             return BijoyConverter.TryConvert(word);
 
@@ -164,7 +161,7 @@ public class KeyboardHookService : IDisposable
             if (to == "english")
             {
                 if (SmartWordHandler.LooksLikeTechnicalTerm(word)) return null;
-                return word;
+                return null;
             }
 
             return null;
@@ -175,7 +172,9 @@ public class KeyboardHookService : IDisposable
             if (to == "bangla" || to == "banglish-bangla")
             {
                 if (SmartWordHandler.LooksLikeTechnicalTerm(word)) return null;
-                return ConvertEnglishToBangla(word);
+                if (SmartWordHandler.IsCommonEnglishWord(word))
+                    return LookupOnline("en", "bn", word);
+                return null;
             }
             return null;
         }
@@ -186,24 +185,41 @@ public class KeyboardHookService : IDisposable
         return null;
     }
 
-    private static string? ConvertEnglishToBangla(string word)
+    private string? LookupOnline(string fromCode, string toCode, string word)
     {
-        var cached = OfflineDictionary.Lookup("en-bn", word);
+        string pair = $"{fromCode}-{toCode}";
+        var cached = OfflineDictionary.Lookup(pair, word);
         if (cached != null) return cached;
 
-        var rev = OfflineDictionary.Lookup("en-bn", word);
-        if (rev == null)
+        string key = word.ToLowerInvariant();
+        lock (_pendingLock)
         {
-            foreach (var kv in OfflineDictionary.Load("en-bn"))
+            if (_pendingTranslations.Contains(key)) return null;
+            _pendingTranslations.Add(key);
+        }
+
+        Task.Run(async () =>
+        {
+            try
             {
-                if (string.Equals(kv.Value, word, StringComparison.OrdinalIgnoreCase))
+                var result = await _translator.TranslateAsync(word, fromCode, toCode);
+                if (!string.IsNullOrEmpty(result) && result != word)
+                    OfflineDictionary.Save(pair, new Dictionary<string, string>
+                    {
+                        [key] = result
+                    });
+            }
+            catch { }
+            finally
+            {
+                lock (_pendingLock)
                 {
-                    rev = kv.Key;
-                    break;
+                    _pendingTranslations.Remove(key);
                 }
             }
-        }
-        return rev;
+        });
+
+        return null;
     }
 
     private string FlushBuffer()
