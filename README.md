@@ -4,16 +4,16 @@
   <img src="Assets/dracula.png" width="128" alt="Vampire Keyboard Logo"/>
 </p>
 
-**Type Banglish, get বাংলা — instantly, in any Windows application.**
+**Type Banglish and get Bangla instantly - in any Windows application.**
 
-Vampire Keyboard is a multilingual keyboard helper for Windows built for Bangladeshi developers, writers, and everyday users. Type Romanized Bangla (Banglish) anywhere — MS Office, Chrome, VS Code, Notepad — and each word converts to proper Bangla the moment you hit Space. It also supports direct Bangla ⇄ English translation, a Bijoy/Avro compatible mode for official work, and 20+ world languages.
+Vampire Keyboard is a multilingual keyboard helper for Windows built for Bangladeshi developers, writers, and everyday users. Type Romanized Bangla (Banglish) anywhere - MS Office, Chrome, VS Code, Notepad - and each word converts to proper Bangla the moment you hit Space. It also supports direct Bangla to English translation, a Bijoy/Avro compatible mode for official work, and 20+ world languages.
 
 ---
 
 ## ✨ Features
 
-- ⚡ **Live Banglish → বাংলা conversion** — works system-wide in every app, fully **offline**
-- 🧠 **Smart phonetic engine** — 200+ word dictionary, hard letters (ট/ড/ণ), hasanta conjuncts (`sKul` → স্কুল), case-sensitive rules
+- ⚡ **Live Banglish to Bangla conversion** — works system-wide in every app, fully **offline**
+- 🧠 **Smart phonetic engine** — 200+ word dictionary, hard letters, hasanta conjuncts (`sKul` becomes the Bangla word for school), case-sensitive rules
 - 🏛 **Bijoy/Avro Compatible Mode** — for official documents and legacy editors
 - 🌍 **20+ languages** — Hindi, Urdu, Arabic, Spanish, French, Chinese, Japanese and more
 - 🔁 **Direct translator** — Google Translate with automatic offline fallback
@@ -27,12 +27,12 @@ Vampire Keyboard is a multilingual keyboard helper for Windows built for Banglad
 ### Installer (recommended)
 
 1. Download **`VampireKeyboard-Setup.exe`** from the [Releases](../../releases) page
-2. Run it → accept the UAC prompt (admin required)
+2. Run it and accept the UAC prompt (admin required)
 3. Choose options (desktop shortcut, start with Windows)
-4. Launch → complete the setup wizard → pick your language
+4. Launch, complete the setup wizard, then pick your language
 5. Start typing Banglish anywhere!
 
-> **System requirements:** Windows 10/11 (x64). No .NET installation needed — the runtime is bundled.
+> **System requirements:** Windows 10/11 (x64). No .NET installation needed - the runtime is bundled.
 
 ### Manual
 
@@ -97,7 +97,7 @@ VampireKeyboard/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or pull request — especially for new Banglish dictionary words and transliteration fixes.
+Contributions are welcome! Please open an issue or pull request - especially for new Banglish dictionary words and transliteration fixes.
 
 ## 📄 License
 
