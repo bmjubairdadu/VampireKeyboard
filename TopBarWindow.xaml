@@ -98,12 +98,11 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Width="28" Height="28" CornerRadius="14"
-                        Background="#120C1C" Cursor="Hand"
+                        Background="#120C1C" Cursor="Hand" ToolTip="Change language"
                         MouseLeftButtonUp="Logo_Click">
                     <Image Source="Assets/dracula.png" Stretch="Uniform" Margin="2"/>
                 </Border>
-                <Border Grid.Column="1" Cursor="Hand" MouseLeftButtonUp="Lang_Click"
-                        Background="Transparent">
+                <Border Grid.Column="1" Background="Transparent">
                     <TextBlock x:Name="StatusText" VerticalAlignment="Center"
                                Margin="8,0,4,0" FontSize="11" Foreground="#F3EAFB"/>
                 </Border>

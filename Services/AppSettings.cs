@@ -12,7 +12,7 @@ public class AppSettings
     public bool AutoTranslateEnabled { get; set; } = true;
 
     /// <summary>Valid "From" (input) language keys.</summary>
-    public static readonly string[] FromKeys = { "banglish-bangla", "english", "bijoy", "hindi", "urdu" };
+    public static readonly string[] FromKeys = { "banglish-bangla", "english", "hindi", "urdu" };
 
     /// <summary>Valid "To" (output) language keys. Note: "banglish-bangla" is NOT a valid target.</summary>
     public static readonly string[] ToKeys = { "bangla", "english", "hindi", "urdu" };

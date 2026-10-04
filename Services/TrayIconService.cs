@@ -58,9 +58,6 @@ public class TrayIconService : IDisposable
             toggle.Text = toggle.Checked ? "Enable Keyboard Conversion" : "Keyboard Conversion is OFF";
         };
 
-        var settingsItem = new WinForms.ToolStripMenuItem("Settings / Language");
-        settingsItem.Click += (_, _) => OpenSettings();
-
         var helpItem = new WinForms.ToolStripMenuItem("How to Use");
         helpItem.Click += (_, _) => ShowHelp();
 
@@ -78,7 +75,6 @@ public class TrayIconService : IDisposable
         menu.Items.Add(headerItem);
         menu.Items.Add(new WinForms.ToolStripSeparator());
         menu.Items.Add(toggle);
-        menu.Items.Add(settingsItem);
         menu.Items.Add(new WinForms.ToolStripSeparator());
         menu.Items.Add(helpItem);
         menu.Items.Add(aboutItem);
@@ -86,26 +82,6 @@ public class TrayIconService : IDisposable
         menu.Items.Add(exitItem);
 
         _icon.ContextMenuStrip = menu;
-        _icon.MouseClick += (_, e) =>
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                OpenSettings();
-        };
-    }
-
-    public static void OpenSettings()
-    {
-        var existing = System.Windows.Application.Current.Windows
-            .OfType<System.Windows.Window>()
-            .FirstOrDefault(w => w is SettingsWindow);
-        if (existing != null)
-        {
-            existing.Activate();
-            return;
-        }
-        var win = new SettingsWindow();
-        win.Show();
-        win.Activate();
     }
 
     private static void ShowHelp()
@@ -118,10 +94,8 @@ public class TrayIconService : IDisposable
             "Examples:\n" +
             "   'ami bhalo achi' converts to Bangla (I am fine)\n" +
             "   'taka koto dorkar' converts to Bangla (How much money needed)\n\n" +
-            "Bijoy/Avro users: choose 'Bijoy/Avro Compatible Mode' from the top bar menu for official work.\n\n" +
             "Tips:\n" +
             "- Capital T/D/N means hard letters: Taka, Dhaka\n" +
-            "- The top bar can be dragged anywhere on screen\n" +
             "- Right-click the tray icon for more options",
             "Vampire Keyboard - Help", MessageBoxButton.OK, MessageBoxImage.Information);
     }
@@ -133,10 +107,7 @@ public class TrayIconService : IDisposable
             "Type in your own language - anywhere in Windows.\n\n" +
             "Made for Bangladeshi developers and users worldwide.\n\n" +
             "Features:\n" +
-            "- Banglish to Bangla live conversion (offline)\n" +
-            "- 20+ languages supported\n" +
-            "- Bijoy/Avro compatible mode\n" +
-            "- Direct translation (Google Translate + offline fallback)\n" +
+            "- Type in your language, get output in the language you choose\n" +
             "- Works in every application",
             "About Vampire Keyboard", MessageBoxButton.OK, MessageBoxImage.None);
     }

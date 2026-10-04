@@ -16,7 +16,6 @@ public class LanguageDef
     {
         new("banglish-bangla", "Banglish to Bangla (Bangladesh)", "BD"),
         new("banglish-english", "Banglish to English", "EN"),
-        new("bijoy", "Bijoy/Avro Compatible Mode", "BJ"),
         new("bangla", "Bangla direct", "BD"),
         new("english", "English", "US"),
         new("hindi", "Hindi (India)", "IN"),

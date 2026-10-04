@@ -33,7 +33,6 @@ public partial class TopBarWindow : Window
         {
             new KeyValuePair<string, string>("banglish-bangla", "Banglish (Roman)"),
             new KeyValuePair<string, string>("english", "English"),
-            new KeyValuePair<string, string>("bijoy", "Bijoy/Avro"),
             new KeyValuePair<string, string>("hindi", "Hindi (Roman)"),
             new KeyValuePair<string, string>("urdu", "Urdu (Roman)"),
         };
@@ -67,7 +66,6 @@ public partial class TopBarWindow : Window
         {
             "banglish-bangla" => "BN-Roman",
             "english" => "EN",
-            "bijoy" => "Bijoy",
             "hindi" => "HI-Roman",
             "urdu" => "UR-Roman",
             _ => "BN",
@@ -112,11 +110,6 @@ public partial class TopBarWindow : Window
         UpdateLabel();
     }
 
-    private void Lang_Click(object sender, MouseButtonEventArgs e)
-    {
-        LangPopup.IsOpen = !LangPopup.IsOpen;
-    }
-
     protected override void OnDeactivated(EventArgs e)
     {
         base.OnDeactivated(e);
@@ -125,6 +118,6 @@ public partial class TopBarWindow : Window
 
     private void Logo_Click(object sender, MouseButtonEventArgs e)
     {
-        TrayIconService.OpenSettings();
+        LangPopup.IsOpen = !LangPopup.IsOpen;
     }
 }
