@@ -17,6 +17,7 @@ public partial class TopBarWindow : Window
         LoadFromTo();
         UpdateLabel();
         EnableBox.IsChecked = _settings.AutoTranslateEnabled;
+        GoogleBox.IsChecked = _settings.UseGoogleTranslate;
     }
 
     private void PositionTopRight()
@@ -79,7 +80,8 @@ public partial class TopBarWindow : Window
             _ => "BN",
         };
         StatusText.Text = $"{from} > {to}";
-        OnOffText.Text = _settings.AutoTranslateEnabled ? "[ON]" : "[OFF]";
+        string on = _settings.AutoTranslateEnabled ? "[ON]" : "[OFF]";
+        OnOffText.Text = _settings.UseGoogleTranslate ? $"{on} G" : on;
     }
 
     private void From_Changed(object sender, SelectionChangedEventArgs e)
@@ -107,6 +109,16 @@ public partial class TopBarWindow : Window
         _settings.AutoTranslateEnabled = on;
         _settings.Save();
         ((App)Application.Current).Hook.Enabled = on;
+        UpdateLabel();
+    }
+
+    private void Google_Changed(object sender, RoutedEventArgs e)
+    {
+        if (_loading) return;
+        bool on = GoogleBox.IsChecked == true;
+        _settings.UseGoogleTranslate = on;
+        _settings.Save();
+        ((App)Application.Current).Hook.UseGoogleTranslate = on;
         UpdateLabel();
     }
 

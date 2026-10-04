@@ -45,6 +45,12 @@ public class KeyboardHookService : IDisposable
     public string FromLanguage { get; set; } = "banglish-bangla";
     public string ToLanguage { get; set; } = "banglish-bangla";
     public bool BijoyMode { get; set; }
+
+    /// <summary>
+    /// When ON, words the offline engine cannot convert are sent to Google
+    /// Translate for a better result instead of being left untouched.
+    /// </summary>
+    public bool UseGoogleTranslate { get; set; }
     public event Action<string, string>? WordConverted;
 
     public void Install()
@@ -199,6 +205,10 @@ public class KeyboardHookService : IDisposable
 
     private string? LookupOnline(string fromCode, string toCode, string word, int replaceCount)
     {
+        // The switch is OFF: never touch the network, just use what we have cached.
+        if (!UseGoogleTranslate)
+            return OfflineDictionary.Lookup($"{fromCode}-{toCode}", word);
+
         string pair = $"{fromCode}-{toCode}";
         var cached = OfflineDictionary.Lookup(pair, word);
         if (cached != null) return cached;

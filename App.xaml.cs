@@ -42,6 +42,7 @@ public partial class App : Application
         Hook.FromLanguage = Settings.FromLanguage;
         Hook.ToLanguage = Settings.ToLanguage;
         Hook.Enabled = Settings.AutoTranslateEnabled;
+        Hook.UseGoogleTranslate = Settings.UseGoogleTranslate;
     }
     public void StartRunning(AppSettings settings)
     {
@@ -49,6 +50,7 @@ public partial class App : Application
         Hook.FromLanguage = settings.FromLanguage;
         Hook.ToLanguage = settings.ToLanguage;
         Hook.Enabled = settings.AutoTranslateEnabled;
+        Hook.UseGoogleTranslate = settings.UseGoogleTranslate;
         Hook.Install();
 
         _tray = new TrayIconService(Hook, settings);

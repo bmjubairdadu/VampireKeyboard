@@ -113,7 +113,7 @@
         <Popup x:Name="LangPopup" PlacementTarget="{Binding ElementName=MainBar}"
                Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade">
             <Border Background="#2A1E3F" CornerRadius="10" BorderBrush="#C0392B"
-                    BorderThickness="1" Margin="0,4,0,0" Width="240">
+                    BorderThickness="1" Margin="0,4,0,0" Width="270">
                 <StackPanel>
                     <TextBlock Text="From (you type)" FontSize="11" Foreground="#8A78A3"
                                Margin="12,10,0,4"/>
@@ -128,8 +128,15 @@
                     <Separator Background="#3D2F55" Margin="8,6"/>
                     <CheckBox x:Name="EnableBox" Content="Conversion ON"
                               Foreground="#7DCEA0" FontSize="12" FontWeight="SemiBold"
-                              Margin="12,4,12,12"
+                              Margin="12,4,12,4"
                               Checked="Enable_Changed" Unchecked="Enable_Changed"/>
+                    <CheckBox x:Name="GoogleBox" Content="Use Google Translate (better results)"
+                              Foreground="#F5B041" FontSize="12" FontWeight="SemiBold"
+                              Margin="12,0,12,4"
+                              Checked="Google_Changed" Unchecked="Google_Changed"/>
+                    <TextBlock Text="Sends unknown words to Google for a more accurate result. Uses internet."
+                               FontSize="9" Foreground="#8A78A3" Margin="12,0,12,10"
+                               TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
         </Popup>

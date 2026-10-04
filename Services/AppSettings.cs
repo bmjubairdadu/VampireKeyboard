@@ -11,6 +11,12 @@ public class AppSettings
     public bool StartWithWindows { get; set; }
     public bool AutoTranslateEnabled { get; set; } = true;
 
+    /// <summary>
+    /// When ON, unknown words are sent to Google Translate for a better result
+    /// instead of being left as-is. Uses more data and is slower than OFF.
+    /// </summary>
+    public bool UseGoogleTranslate { get; set; }
+
     /// <summary>Valid "From" (input) language keys.</summary>
     public static readonly string[] FromKeys = { "banglish-bangla", "english", "hindi", "urdu" };
 
