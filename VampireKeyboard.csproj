@@ -42,4 +42,13 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
+  <!--
+    The default glob only excludes THIS project's obj/bin. Nested scratch
+    projects (e.g. a stray TestTool\obj) would otherwise be compiled into this
+    assembly and break it with duplicate AssemblyInfo attributes.
+  -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\obj\**;**\bin\**;TestTool\**</DefaultItemExcludes>
+  </PropertyGroup>
+
 </Project>
